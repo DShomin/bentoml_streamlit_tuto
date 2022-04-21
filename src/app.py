@@ -1,11 +1,9 @@
 import streamlit as st
 
 import requests
-import ast
-from PIL import Image
 import io
 
-from utils import load_cls_list
+from utils import load_cls_list, text2list, load_image
 
 
 def post_data(url, data: dict):
@@ -19,15 +17,6 @@ def post_image_file(url, img):
     byte_io.seek(0)
     r = requests.post(url, files={"files[]": ("1.png", byte_io, "image/png")},)
     return r.json()
-
-
-def text2list(data):
-    return [int(x) for x in ast.literal_eval(data)]
-
-
-def load_image(image_file):
-    img = Image.open(image_file)
-    return img
 
 
 st.sidebar.header("Select service")
